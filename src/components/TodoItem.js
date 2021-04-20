@@ -4,10 +4,25 @@ import CloseIcon from "@material-ui/icons/Close";
 import EditIcon from "@material-ui/icons/Edit";
 import TextField from "@material-ui/core/TextField";
 
-function Item() {
-  const [checked, setChecked] = React.useState(true);
-  const [textEdit, setTextEdit] = useState("");
+import create from "zustand";
+
+import { todosAPI } from "api/todosAPI";
+
+// const useStore = create(() => ({
+//   todoUpdate: {},
+//   updateData: async (todo) => {
+//     const dataUpdated = await todosAPI.updateTodo(todo);
+//     console.log("dataUpdated:", dataUpdated);
+//   },
+// }));
+
+function Item(props) {
+  const [checked, setChecked] = React.useState(props.todo.isCompleted);
+  const [textEdit, setTextEdit] = useState(props.todo.title);
   const [isEdit, setIsEdit] = useState(false);
+
+  // const todoUpdate = useStore((state) => state.todoUpdate);
+  // const updateData = useStore((state) => state.updateData);
 
   const handleChange = (event) => {
     setChecked(event.target.checked);
@@ -24,6 +39,12 @@ function Item() {
   const handleEnterEdited = (event) => {
     if (event.key === "Enter") {
       setIsEdit(false);
+      let itemEdited = {
+        id: props.todo.id,
+        title: textEdit,
+        isCompleted: checked,
+      };
+      props.todoUpdate(itemEdited);
     }
   };
 
@@ -40,7 +61,7 @@ function Item() {
           />
           {!isEdit && (
             <label className={checked ? "item-completed" : "item-active"}>
-              testing
+              {props.todo.title}
             </label>
           )}
           {isEdit && (

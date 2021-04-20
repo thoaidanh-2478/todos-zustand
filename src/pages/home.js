@@ -1,6 +1,5 @@
 import React from "react";
-import TodoList from "../components/TodoList";
-import FilterItem from "../components/FilterItem";
+import TodoList from "components/TodoList";
 
 function Home() {
   return (

@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import Alert from "@material-ui/lab/Alert";
 import { ErrorMessage } from "@hookform/error-message";
 
-import useStylesNotification from "../hook/makeNoti";
+import useStylesNotification from "hook/makeNoti";
 
 const defaultValues = {
   contentTask: "",
